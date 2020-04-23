@@ -9,7 +9,7 @@ const buildControls = (props) => (
         {Object.keys(props.ingredients).map((ig,i) =>{
             return <BuildControl key={ig+i} label={ig} moreClicked={() => props.ingredientAdded(ig)} lessClicked={()=>props.ingredientRemoved(ig)} disabled={props.disabled[ig]}></BuildControl>
         })}
-        <button className={styles.OrderButton} disabled={!props.purchasable}>ORDER NOW!</button>
+        <button className={styles.OrderButton} disabled={!props.purchasable} onClick={props.orderHandler}>ORDER NOW!</button>
     </div>
 
 );

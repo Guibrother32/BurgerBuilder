@@ -1,0 +1,26 @@
+.Centered{
+    widows: 230px;
+    margin:auto;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.Receip__Separator{
+    border:0;
+    border-bottom: 1px dashed #bbbbbb;
+}
+
+.Ul__Receipt{
+    margin-left:36%;
+    
+}
+
+.Li__Receipt{
+    width: 100px;
+    height: 25px;
+    
+}
+
+.Li__Receipt.IgCount__Receipt{
+   
+}
