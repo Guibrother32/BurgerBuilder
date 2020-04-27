@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Aux from '../../hoc/aaux';
+import Aux from '../aaux/aaux';
 import styles from './Layout.module.css';
-import Toolbar from '../Navigation/Toolbar/Toolbar';
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
 class Layout extends Component {
 
@@ -10,9 +10,15 @@ class Layout extends Component {
         showSideDrawer:false
     }
 
+    // showSideDrawerHandler = () =>{
+    //     this.setState({showSideDrawer:!this.state.showSideDrawer})
+    // }
+
     showSideDrawerHandler = () =>{
-        this.setState({showSideDrawer:!this.state.showSideDrawer})
-    }
+        this.setState((prevState) => {
+            return {showSideDrawer: !prevState.showSideDrawer}
+        });
+    } //this is the cleaner method to setState when youre accessing an old state***
 
     render() {
         return (

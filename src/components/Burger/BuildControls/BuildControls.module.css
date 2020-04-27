@@ -7,6 +7,7 @@
     box-shadow: 0 2px 1px #ccc;
     margin: auto;
     padding: 10px 0px;
+    height: 51vh;
 }
 
 
@@ -53,3 +54,10 @@
         transform: scale(1);
     }
 }
+
+@media (min-width:500px){
+    .BuildControls{
+        height: 47.3vh;
+    }
+}
+

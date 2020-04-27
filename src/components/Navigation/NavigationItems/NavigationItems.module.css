@@ -6,7 +6,6 @@
     flex-flow: column;
     /* align-items: center;  */
     height: 100%;
-    margin-top: 5px;
 }
 
 .NavigationItem{
@@ -18,7 +17,7 @@
 }
 
 .NavigationItem a {
-    margin-top: 10px;
+    margin: 0;
     color: black;
     text-decoration: none;
     height: 100%;
@@ -57,8 +56,8 @@
     .NavigationItem a:hover,
     .NavigationItem a:active,
     .NavigationItem a.active {
-        background-color: #8F5C2C;
-        border-bottom: 4px solid #40A4C8;
+        background-color: rgb(82, 39, 0);
+        border-bottom: 4px solid rgb(0, 0, 0);
         color: white;
     }
 }
