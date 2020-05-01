@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Aux from '../../../hoc/aaux/aaux';
 import Button from '../../UI/Button/Button';
 import styles from './OrderSummary.module.css';
+import {Link} from 'react-router-dom';
 
 class OrderSummary extends Component {
 
@@ -27,7 +28,7 @@ class OrderSummary extends Component {
                 <p className={styles.Centered}>Do you want proceed to Checkout?</p>
                 <div className={styles.Centered}>
                     <Button btnType='Danger' clicked={this.props.modalNoBtnClicked}>No</Button>
-                    <Button btnType='Success' clicked={this.props.modalYesBtnClicked}>Yes</Button>
+                    <Link to='/checkout'><Button btnType='Success' clicked={this.props.modalYesBtnClicked}>Yes</Button></Link>
                 </div>
             </Aux>
         );
