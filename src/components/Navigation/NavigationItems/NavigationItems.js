@@ -1,10 +1,11 @@
 import React from 'react';
-import styles from './NavigationItems.module.css'
+import styles from './NavigationItems.module.css';
+import {NavLink} from 'react-router-dom';
 
-const navigationItems = () =>(
+const navigationItems = (props) =>(
     <ul className={styles.NavigationItems}>
-        <li className={styles.NavigationItem} onClick={()=>styles.active}><a href="/">Burger Builder</a></li>
-        <li className={styles.NavigationItem} onClick={()=>styles.active}><a href="/">Checkout</a></li>
+        <li className={styles.NavigationItem} onClick={props.navigationItemClick}><NavLink to="/" exact activeClassName={styles.active}>Burger Builder</NavLink></li>
+        <li className={styles.NavigationItem} onClick={props.navigationItemClick}><NavLink to="/orders" activeClassName={styles.active}>Orders</NavLink></li>
     </ul>
 );
 

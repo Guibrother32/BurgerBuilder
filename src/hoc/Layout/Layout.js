@@ -23,7 +23,7 @@ class Layout extends Component {
     render() {
         return (
             <Aux>
-                <SideDrawer backdropClick={this.showSideDrawerHandler} sideDrawerDisplay={this.state.showSideDrawer}></SideDrawer>
+                <SideDrawer backdropClick={this.showSideDrawerHandler} sideDrawerDisplay={this.state.showSideDrawer} navigationItemClicked={this.showSideDrawerHandler}></SideDrawer>
                 <Toolbar menuBtnClick={this.showSideDrawerHandler}></Toolbar>
                 <main className={styles.Content}>
                     {this.props.children}

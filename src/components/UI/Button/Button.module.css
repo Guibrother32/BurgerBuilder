@@ -20,20 +20,36 @@
 
 .Success {
     border: solid #5C9210 2px;
-    color: #5C9210;
+    color: rgb(255, 255, 255);
+    background-color: #5C9210;
 }
 
 .Danger {
     border:solid #944317 2px;
-    color: #944317;
+    color: #ffffff;
+    background-color: #944317;
 }
 
 .Button.Success:hover{
-    background-color:  #5C9210;
-    color: white;
+    color:  #5C9210;
+    background-color: white;
+
 }
 
 .Button.Danger:hover{
-    background-color: #944317;
-    color: white;
+    color: #944317;
+    background-color: white;
+}
+
+.Button:disabled{
+    color: gray;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+}
+
+.Button:disabled:hover{
+    color: gray;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    cursor: context-menu;
 }

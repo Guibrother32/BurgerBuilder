@@ -38,7 +38,7 @@ class BurgerBuilder extends Component {
             this.setState({ ingredients: response.data });
         }).catch(error =>{
             this.setState({ error: true });
-            this.props.err(true, error.message); //? -> reply: this is a props access passing arguments that will be accepted on its value where it have been called
+            this.props.err(true, error.message); //? -> reply: this is a props access, passing arguments that will be accepted on its value where it have been called
           });
     }
 
@@ -99,7 +99,16 @@ class BurgerBuilder extends Component {
         //     this.setState({ loading: false, onBtnOrderNowClick: false , error:true });
         //     this.props.err(true, error.message);
         // });
-        this.props.history.push('/checkout');
+        const queryParams = [];
+        for (const ing in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(ing) + '=' + encodeURIComponent(this.state.ingredients[ing])); //[salad=1,bacon=2,meat=3,cheese=2]
+        }//we use encode to encode string in URL, for example Rock&Roll -> Rock%26Roll
+
+        //const priceInQueryParam = ['price=' , this.state.totalPrice]; //temporary
+        queryParams.push('price=' + this.state.totalPrice);//temporary
+
+        const queryParamsString = queryParams.join('&'); //bacon=1&cheese=1&meat=2&salad=2
+        this.props.history.push({pathname:'/checkout',search:'?' + queryParamsString});
     }
 
     render() {
