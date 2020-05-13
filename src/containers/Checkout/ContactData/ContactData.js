@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import Button from '../../../components/UI/Button/Button';
 import styles from './ContactData.module.css';
-import axios from '../../../axios-order';
+// import axios from '../../../axios-order';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { withRouter } from 'react-router-dom';
 import Input from '../../../components/UI/Input/Input';
+
+import {connect} from 'react-redux';
+import * as actions from '../../../store/actions/index';
+
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrrorHandler';
 
 class ContactData extends Component {
     state = {
@@ -44,7 +49,8 @@ class ContactData extends Component {
                 value: '',
                 validation: {
                     required: true,
-                    correctLength: 5
+                    correctLength: 5,
+                    isNumeric:true
                 },
                 valid: false,
                 touched: false
@@ -65,12 +71,13 @@ class ContactData extends Component {
             email: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
+                    type: 'email',
                     placeholder: 'burger@builder.com'
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isEmail: true
                 },
                 valid: false,
                 touched: false
@@ -92,7 +99,7 @@ class ContactData extends Component {
     orderHandler = (event) => {
         // alert('Thank you! \nTotal: $' + this.state.totalPrice);
         event.preventDefault();
-        this.setState({ loading: true });
+        // this.setState({ loading: true });
         const formUserData = {}
         for (let key in this.state.orderForm) {
             formUserData[key] = this.state.orderForm[key].value;
@@ -103,13 +110,15 @@ class ContactData extends Component {
             price: this.props.totalPrice, //In production price should be handled on the serverside
             orderData: formUserData
         };
-        axios.post('/orders.json', order).then(response => {//.json is firebase thing
-            this.setState({ loading: false });
-            this.props.history.push('/');
-        }).catch(error => {
-            this.setState({ loading: false, error: true });
-            this.props.err(true, error.message);
-        });
+
+        this.props.onOrderBurger(order);
+        // axios.post('/orders.json', order).then(response => {//.json is firebase thing
+        //     this.setState({ loading: false });
+        //     this.props.history.push('/');
+        // }).catch(error => {
+        //     this.setState({ loading: false, error: true });
+        //     this.props.err(true, error.message);
+        // });
     }
 
 
@@ -123,7 +132,15 @@ class ContactData extends Component {
         }
 
         if (validation.correctLength) {
-            isValid = (+value.length === 5);
+            isValid = (+value.length === 5) && isValid;
+        }
+        if(validation.isEmail){
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/; //email regex
+            isValid = pattern.test(value) && isValid;
+        }
+        if(validation.isNumeric){
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid;
         }
 
         return isValid;
@@ -191,7 +208,7 @@ class ContactData extends Component {
 
         );
 
-        if (this.state.loading) {
+        if (this.props.loading) {
             form = <Spinner></Spinner>;
         }
 
@@ -205,4 +222,18 @@ class ContactData extends Component {
 
 }
 
-export default withRouter(ContactData); //we wrap withRoute here because we need to access props in this.props.history.push
+const mapStateToProps = state =>{
+    return{
+        ingredients: state.burgerBuilderR.ingredients,
+        totalPrice: state.burgerBuilderR.totalPrice,
+        loading: state.orderR.loading
+    }
+}
+
+const mapDispatchToProps = dispatch =>{
+    return{
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(withErrorHandler(ContactData))); //we wrap withRoute here because we need to access props in this.props.history.push
