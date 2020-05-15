@@ -6,6 +6,8 @@ import Checkout from './containers/Checkout/Checkout';
 import { Route, Switch } from 'react-router-dom';
 import Orders from './containers/Orders/Orders';
 import Auth from '../src/containers/Auth/Auth';
+import withErrorHandler from './hoc/withErrorHandler/withErrrorHandler';
+import Logout from '../src/containers/Auth/Logout/Logout';
 
 function App() {
   return (
@@ -14,9 +16,10 @@ function App() {
       <Layout>
 
         <Switch>
-        <Route path='/login' component={Auth}/>
+          <Route path='/logout' component={Logout}/>
+          <Route path='/login' component={Auth} />
           <Route path='/orders' component={Orders}></Route>
-          <Route path='/checkout' component={Checkout}/>
+          <Route path='/checkout' component={Checkout} />
           <Route path='/' exact component={BurgerBuilder} />
         </Switch>
 
@@ -28,4 +31,4 @@ function App() {
   );
 }
 
-export default App;
+export default withErrorHandler(App);

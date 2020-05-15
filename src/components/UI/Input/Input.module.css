@@ -12,6 +12,10 @@
     border-radius: 3px;
 }
 
+.Input:focus{
+    outline: none !important;
+}
+
 .Select{
     display: inline-block;
     width: 86%;
@@ -23,7 +27,7 @@
 }
 
 .Invalid{
-    background-color: rgb(253, 135, 135);
+    background-color: #fff;
     border: 1px solid red;
 }
 

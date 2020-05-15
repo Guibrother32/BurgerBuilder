@@ -25,7 +25,7 @@ export const setIngredients = (ings) => {
 
 export const initIngredients = () => {
     return dispatch => { //available due to redux thunk
-        axios.get('/Ingredients.json').then(response => {
+        axios.get('/ingredients.json').then(response => {
             // this.setState({ ingredients: response.data });
             dispatch(setIngredients(response.data));
         }).catch(error => {

@@ -1,0 +1,35 @@
+.AuthData{
+    margin:25vh auto;
+    width: 80%;
+    max-width: 550px;
+    text-align: center;
+    border: 1px solid rgb(216, 216, 216);
+    box-shadow: rgb(204, 204, 204) 0px 2px 3px;
+    height: 28rem;
+}
+
+/* .AuthInputForm{
+    text-align: middle;
+} */
+
+.form__ErrorMessage{
+    width: 79%;
+    max-width: 26rem;
+    color: red;
+    text-align: start;
+    margin: auto;
+    font-size: .9rem;
+}
+
+div > h4{
+    margin-bottom: 1rem !important;
+}
+
+@media(min-width:600px){
+    .ContactData{
+        width: 600px;
+    }
+    .ContactData input{
+        width: 400px;
+    }
+}

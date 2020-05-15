@@ -10,11 +10,13 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import burgerBuilderReducer from './store/reducer/burgerBuilder';
 import orderReducer from './store/reducer/order';
+import authReducer from './store/reducer/auth';
 import thunk from 'redux-thunk'; //thunk is to be abble to interrupt the middleware
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; //middleware and devtools are types of enhancer
 
 const rootReducer = combineReducers({
+  authR:authReducer,
   burgerBuilderR: burgerBuilderReducer,
   orderR: orderReducer
 });
