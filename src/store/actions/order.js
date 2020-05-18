@@ -62,16 +62,18 @@ export const fetchOrdersStart = () => {
 };
 
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
-        axios.get('/orders.json?auth=' + token).then(res => {
+        const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"'; //this is firebase only, you can also check inside of the loop where you push orders inside of fetched orders to see if userId matches with the response
+        axios.get('/orders.json' + queryParams).then(res => {
             const fetchedOrders = [];
             for (let key in res.data) { //key is the obj of all data for ex its M6GwI06boVVQrJav9B and A6GwsdgboVVQrJav9B
                 fetchedOrders.push({
                     ...res.data[key],
                     id: key
                 });
+
             }
             dispatch(fetchOrdersSuccess(fetchedOrders));
         }).catch(err => {

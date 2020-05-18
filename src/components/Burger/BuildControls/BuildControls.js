@@ -2,6 +2,7 @@ import React from 'react';
 import BuildControl from './BuildControl/BuildControl';
 import styles from './BuildControls.module.css';
 
+
 const buildControls = (props) => (
 
     <div className={styles.BuildControls}>
@@ -9,7 +10,7 @@ const buildControls = (props) => (
         {Object.keys(props.ingredients).map((ig,i) =>{
             return <BuildControl key={ig+i} label={ig} moreClicked={() => props.ingredientAdded(ig)} lessClicked={()=>props.ingredientRemoved(ig)} disabled={props.disabled[ig]}></BuildControl>
         })}
-        <button className={styles.OrderButton} disabled={!props.purchasable} onClick={props.orderHandler}>ORDER NOW!</button>
+        <button className={styles.OrderButton} disabled={!props.purchasable} onClick={props.orderHandler}>{props.isAuthenticated ? 'ORDER NOW!' : 'SIGNIN TO ORDER'}</button>
     </div>
 
 );

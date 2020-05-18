@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 // import * as actionTypes from '../../store/actions/actionTypes';
 import * as actions from '../../store/actions/index';
 
-
 // const INGREDIENT_PRICES = {
 //     meat: 6,
 //     cheese: 1,
@@ -68,7 +67,14 @@ class BurgerBuilder extends Component {
     // }
 
     purchaseHandler = () => {
-        this.setState({ onBtnOrderNowClick: true });
+        if (!this.props.isAuth) { //NOT AUTHENTICATED
+            this.props.onSetRedirectPath('/checkout');//we dont need to check if theres anything in the burger because the button only becomes available after adding something
+            this.props.history.push('/login');
+            //     //return this.variableRedirect=<Redirect to="/login"/>
+        } else {
+            this.setState({ onBtnOrderNowClick: true }); //shows the modal  
+        }
+        console.log(this.props.isAuth);
     }
     purchaseCancelHandler = () => {
         this.setState({ onBtnOrderNowClick: false });
@@ -131,7 +137,7 @@ class BurgerBuilder extends Component {
             burger = (
                 <Aux>
                     <Burger ingredients={this.props.ingredients}></Burger>
-                    <BuildControls ingredients={this.props.ingredients} ingredientAdded={this.props.onAddIngredient} ingredientRemoved={this.props.onDeleteIngredient} disabled={disabledInfo} price={this.props.totalPrice} purchasable={this.updatePurchasable(this.props.ingredients)} orderHandler={this.purchaseHandler}></BuildControls>
+                    <BuildControls isAuthenticated={this.props.isAuth} ingredients={this.props.ingredients} ingredientAdded={this.props.onAddIngredient} ingredientRemoved={this.props.onDeleteIngredient} disabled={disabledInfo} price={this.props.totalPrice} purchasable={this.updatePurchasable(this.props.ingredients)} orderHandler={this.purchaseHandler}></BuildControls>
                 </Aux>
             );
             orderSummary = <OrderSummary ingredients={this.props.ingredients} modalNoBtnClicked={this.purchaseCancelHandler} modalYesBtnClicked={this.purchaseContinue} totalPrice={this.props.totalPrice}></OrderSummary>;
@@ -155,7 +161,8 @@ const mapStateToProps = state => {
     return {
         ingredients: state.burgerBuilderR.ingredients,
         totalPrice: state.burgerBuilderR.totalPrice,
-        error: state.burgerBuilderR.error
+        error: state.burgerBuilderR.error,
+        isAuth: state.authR.token !== null
     }
 };
 
@@ -164,7 +171,8 @@ const mapDispatchToProps = dispatch => {
         onAddIngredient: (ing) => dispatch(actions.addIngredient(ing)),
         onDeleteIngredient: (ing) => dispatch(actions.removeIngredient(ing)),
         onInitIngredients: () => dispatch(actions.initIngredients()),
-        onInitPurchase: () => dispatch(actions.purchaseInit())
+        onInitPurchase: () => dispatch(actions.purchaseInit()),
+        onSetRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
     };
 }
 
