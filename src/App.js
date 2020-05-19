@@ -12,6 +12,8 @@ import Logout from '../src/containers/Auth/Logout/Logout';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
 
+//implement lazy loading 216
+
 class App extends Component {
 
   componentDidMount() {
@@ -33,6 +35,7 @@ class App extends Component {
           <Route path='/logout' component={Logout} />
           <Route path='/orders' component={Orders} />
           <Route path='/checkout' component={Checkout} />
+          <Route path='/login' component={Auth} />
           <Route path='/' exact component={BurgerBuilder} />
           <Redirect to='/' />
         </Switch>
@@ -60,6 +63,6 @@ const mapDispatchToProps = (dispatch) => {
     autoLogin: () => dispatch(actions.authCheckState())
   }
 }
-//withRouter wrap in this case is used if your app crashes using connect with Route in it, as we use here in app.js, although it was running normaly before.
+//withRouter wrap in this case is used if your app crashes using connect with Route in it, as we use here in app.js, although it was running normaly before. Notice that withRouter is used on the component that needs the react-router-dom props
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(App)));
 

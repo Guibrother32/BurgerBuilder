@@ -13,7 +13,7 @@ import orderReducer from './store/reducer/order';
 import authReducer from './store/reducer/auth';
 import thunk from 'redux-thunk'; //thunk is to be abble to interrupt the middleware
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; //middleware and devtools are types of enhancer
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose; //middleware and devtools are types of enhancer //second part is to prevent people to use redux dev tools in your project and so hide the properties from them // to find config.js Check for the config folder under node_modules/react-scripts/config
 
 const rootReducer = combineReducers({
   authR:authReducer,

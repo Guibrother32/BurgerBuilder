@@ -51,7 +51,6 @@ class Orders extends Component {
         } 
         if(this.props.orders.length === 0){
             orders = <p>THERES NO ORDERS YET!</p>;
-            console.log(this.props.token);
         }
 
         return (

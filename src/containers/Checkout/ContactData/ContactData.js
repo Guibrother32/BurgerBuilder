@@ -11,6 +11,8 @@ import * as actions from '../../../store/actions/index';
 
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrrorHandler';
 
+import {validationHandler} from '../../../shared/utility';
+
 class ContactData extends Component {
     state = {
         orderForm: {
@@ -122,31 +124,6 @@ class ContactData extends Component {
         // });
     }
 
-
-    validationHandler = (value, validation) => {
-        let isValid = false;
-
-        if (validation.required) {
-            isValid = (value.trim() !== '');
-        } else { //this is for the selector which doesnt require a required property
-            isValid = true;
-        }
-
-        if (validation.correctLength) {
-            isValid = (+value.length === 5) && isValid;
-        }
-        if(validation.isEmail){
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/; //email regex
-            isValid = pattern.test(value) && isValid;
-        }
-        if(validation.isNumeric){
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid;
-        }
-
-        return isValid;
-    }
-
     inputChangedHandler = (event, elementIdentifier) => {
         const updatedOrderForm = { //name street zipcode ..  are all spreaded
             ...this.state.orderForm
@@ -156,7 +133,7 @@ class ContactData extends Component {
         }
         updatedOrderFormInnerObjs.value = event.target.value;
 
-        updatedOrderFormInnerObjs.valid = this.validationHandler(updatedOrderFormInnerObjs.value, updatedOrderFormInnerObjs.validation);
+        updatedOrderFormInnerObjs.valid = validationHandler(updatedOrderFormInnerObjs.value, updatedOrderFormInnerObjs.validation);
         updatedOrderFormInnerObjs.touched = true;
 
         updatedOrderForm[elementIdentifier] = updatedOrderFormInnerObjs;
@@ -173,10 +150,8 @@ class ContactData extends Component {
 
         }
 
-        console.log(formIsValid);
 
         this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
-        console.log(updatedOrderForm[elementIdentifier]);
 
     }
 

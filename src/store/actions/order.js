@@ -26,7 +26,6 @@ export const purchaseBurger = (orderData, token) => {
     return dispatch => {
         dispatch(purchaseBurgerStart()); //I want to execute it wrapped in a dispatch so that the action returned by purchaseBurgerStart is dispatched to the store                 //triggers the spinner
         axios.post('/orders.json?auth=' + token, orderData).then(response => {//.json is firebase thing
-            console.log(response.data.name)
             dispatch(purchaseBurgerSuccess(response.data, orderData));                                                                                                              //proccess succeeded
         }).catch(error => {
             dispatch(purchaseBurgerFail(error));                                                                                                                                    //proccess error
@@ -77,7 +76,6 @@ export const fetchOrders = (token, userId) => {
             }
             dispatch(fetchOrdersSuccess(fetchedOrders));
         }).catch(err => {
-            console.log('/orders.json?auth=' + token);
             dispatch(fetchOrdersError(err));
         });
     }

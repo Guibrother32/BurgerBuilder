@@ -3,7 +3,6 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 export const checkOutTime = (expTime) => {//BECAUSE FIREBASE HAS A EXPIRATION TIME OF 3600s AND WE WILL LOGOUT THE USER AFTER THAT, SO THAT WE CAN GIVE THE USER A FEEDBACK WHENEVER ITS LOGGED IN/OUT
-    console.log(expTime);
     return dispatch => {
         setTimeout(() => {
             dispatch(logout());
@@ -56,7 +55,6 @@ export const auth = (email, password, isSignUp) => {
         }
         axios.post(url, authData)
             .then(response => {
-                console.log(response);
                 const expDate = new Date(new Date().getTime() + response.data.expiresIn * 1000); //explanatiom: when it doesnt have an argument it gives us the current date, if it does it transform the ms or s in date(get the current date.pass it to millisecons + expiration time*1000 => to transform to ms because JS works with ms)
                 localStorage.setItem('token', response.data.idToken);
                 localStorage.setItem('expDate', expDate);
@@ -65,7 +63,6 @@ export const auth = (email, password, isSignUp) => {
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
             })
             .catch(err => {
-                console.log(err);
                 dispatch(authFail(err.response.data.error));
             });
     };

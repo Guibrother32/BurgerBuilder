@@ -12,6 +12,8 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 import {Redirect} from 'react-router-dom';
 
+import {validationHandler} from '../../shared/utility';
+
 class Auth extends Component {
 
     state = {
@@ -54,29 +56,6 @@ class Auth extends Component {
         }
     }
 
-    validationHandler = (value, validation) => {
-        let isValid = false;
-
-        if (validation.required) {
-            isValid = (value.trim() !== '');
-        } else { //this is for the selector which doesnt require a required property
-            isValid = true;
-        }
-
-        if (validation.minLength) {
-            isValid = (+value.length >= validation.minLength) && isValid;
-        }
-        if (validation.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/; //email regex
-            isValid = pattern.test(value) && isValid;
-        }
-        if (validation.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid;
-        }
-
-        return isValid;
-    }
 
     inputChangedHandler = (event, controlName) => {
         const updatedControls = {
@@ -84,7 +63,7 @@ class Auth extends Component {
             [controlName]: { //remember in this synthax we are reaching each property of controls to edit it thats why we are wrapping with []
                 ...this.state.controls[controlName],
                 value: event.target.value, //change the value
-                valid: this.validationHandler(event.target.value, this.state.controls[controlName].validation), //check the validity
+                valid: validationHandler(event.target.value, this.state.controls[controlName].validation), //check the validity
                 touched: true //set touched
             }
         }

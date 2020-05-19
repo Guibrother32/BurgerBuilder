@@ -41,7 +41,6 @@ class BurgerBuilder extends Component {
         const sum = Object.keys(ingredients).map(igKey => {
             return ingredients[igKey];
         }).reduce((sum, el) => {
-            console.log(sum);
             return sum + el;
         }, 0);
 
@@ -74,7 +73,6 @@ class BurgerBuilder extends Component {
         } else {
             this.setState({ onBtnOrderNowClick: true }); //shows the modal  
         }
-        console.log(this.props.isAuth);
     }
     purchaseCancelHandler = () => {
         this.setState({ onBtnOrderNowClick: false });
