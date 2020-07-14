@@ -1,5 +1,5 @@
 # BurgerBuilder
-A webapp made with reactJS that provides you a management of a burger creation. 
+A webapp made with ReactJS that provides you a management of a burger creation. 
 
 ## Deployed website URL
 
